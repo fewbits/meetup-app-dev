@@ -30,7 +30,7 @@ build:
     - $MOD_LOC/mocha --exit --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
     # - $MOD_LOC/istanbul --include-all-sources cover -root "$SHIPPABLE_REPO_DIR/routes" $SHIPPABLE_REPO_DIR/node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
     # - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
-    - popd
+    # - popd
   post_ci:
     - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER .
     - docker push $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER

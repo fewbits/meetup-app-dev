@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Tetris1';
+    src:  url('Tetris1.ttf.woff') format('woff'),
+    url('Tetris1.ttf.svg#Tetris1') format('svg'),
+    url('Tetris1.ttf.eot'),
+    url('Tetris1.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+p {
+  font-family:'Tetris1';
+  color: white;
+}
+
+body{
+  background: #141414;
+  overflow:hidden;
+}
+
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: -9999
+}
+
+#meetup {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.center {
+  margin: 0 auto;
+  color: #fff;
+  padding-top: 50px;
+  font-size: 80px;
+  text-align: center;
+}

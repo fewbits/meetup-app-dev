@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - 8.15.1
+
+branches:
+  only:
+    - master
+
+build:
+  ci:
+    - npm install --prefix app/
+    - npm test --prefix app/
+    - docker build -t lowbit/meetup-assembly-lines:$BRANCH.$BUILD_NUMBER .
+  post_ci:
+    - docker push lowbit/meetup-assembly-lines:$BRANCH.$BUILD_NUMBER
+
+integrations:
+  hub:
+    - integrationName: docker-registry
+      type: dockerRegistryLogin

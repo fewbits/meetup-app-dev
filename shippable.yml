@@ -8,15 +8,31 @@ branches:
   only:
     - master
 
-build:
-  ci:
-    - npm install --prefix app/
-    - npm test --prefix app/
-    - docker build -t lowbit/meetup-assembly-lines:$BRANCH.$BUILD_NUMBER .
-  post_ci:
-    - docker push lowbit/meetup-assembly-lines:$BRANCH.$BUILD_NUMBER
-
 integrations:
   hub:
     - integrationName: docker-registry
       type: dockerRegistryLogin
+
+env:
+  global:
+    - TEST_RESULTS_DIR=$SHIPPABLE_REPO_DIR/shippable/testresults
+    - CODE_COVERAGE_DIR=$SHIPPABLE_REPO_DIR/shippable/codecoverage
+    - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/app/tests
+    - MOD_LOC=$SHIPPABLE_REPO_DIR/app/node_modules/.bin/
+    - DOCKER_REPO="meetup-assembly-lines"
+    - DOCKER_ACC=lowbit
+
+build:
+  ci:
+    - npm install --prefix app/
+    - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
+    - $MOD_LOC/mocha --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
+    # - $MOD_LOC/istanbul --include-all-sources cover -root "$SHIPPABLE_REPO_DIR/routes" $SHIPPABLE_REPO_DIR/node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
+    # - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
+    - popd
+    # - npm test --prefix app/
+  post_ci:
+    # - docker build -t lowbit/meetup-assembly-lines:$BRANCH.$BUILD_NUMBER .
+    # - docker push lowbit/meetup-assembly-lines:$BRANCH.$BUILD_NUMBER
+    - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER .
+    - docker push $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER

@@ -1,8 +1,8 @@
 # Let's use some really lightweight image
 FROM node:8-alpine
 
-# Add our project's directory to the image
-ADD app /app
+# Add our project to the image
+ADD index.js package.json test views /app
 
 # Install dependencies
 WORKDIR /app

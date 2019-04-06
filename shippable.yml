@@ -51,4 +51,4 @@ jobs:
   - name: meetup-app-dev_runCI
     type: runCI
     steps:
-      - OUT: node_app_img_dh
+      - OUT: meetup-assembly-lines_img_dh

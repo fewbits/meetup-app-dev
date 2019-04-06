@@ -2,7 +2,7 @@
 FROM node:8-alpine
 
 # Add our project to the image
-ADD index.js package.json test views /app
+ADD index.js package.json test views /app/
 
 # Install dependencies
 WORKDIR /app

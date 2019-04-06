@@ -17,7 +17,7 @@ env:
   global:
     - TEST_RESULTS_DIR=$SHIPPABLE_REPO_DIR/shippable/testresults
     - CODE_COVERAGE_DIR=$SHIPPABLE_REPO_DIR/shippable/codecoverage
-    - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/tests
+    - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/test
     - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/
     - DOCKER_REPO="meetup-assembly-lines"
     - DOCKER_ACC=lowbit

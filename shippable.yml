@@ -21,6 +21,7 @@ env:
     - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/
     - DOCKER_REPO="meetup-assembly-lines"
     - DOCKER_ACC=lowbit
+    - SHIP_IMG_RES=$DOCKER_REPO"_img_dh"
 
 build:
   ci:
@@ -34,3 +35,20 @@ build:
   post_ci:
     - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER .
     - docker push $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER
+  on_success:
+    - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
+
+resources:
+  - name: meetup-assembly-lines_img_dh
+    type: image
+    integration: docker-registry
+    versionTemplate:
+      sourceName: "lowbit/meetup-assembly-lines" # replace with your Hub URL
+      isPull: false
+      versionName: latest
+
+jobs:
+  - name: meetup-app-dev_runCI
+    type: runCI
+    steps:
+      - OUT: node_app_img_dh

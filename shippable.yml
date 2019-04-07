@@ -43,7 +43,7 @@ resources:
     type: image
     integration: docker-registry
     versionTemplate:
-      sourceName: "lowbit/meetup-assembly-lines" # replace with your Hub URL
+      sourceName: "lowbit/meetup-assembly-lines"
       isPull: false
       versionName: latest
 

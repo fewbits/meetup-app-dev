@@ -19,15 +19,14 @@ env:
     - CODE_COVERAGE_DIR=$SHIPPABLE_REPO_DIR/shippable/codecoverage
     - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/test
     - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/
-    - DOCKER_REPO="meetup-assembly-lines"
+    - DOCKER_REPO="meetup-app"
     - DOCKER_ACC=lowbit
-    - SHIP_IMG_RES=$DOCKER_REPO"_img_dh"
+    - SHIP_IMG_RES="image"
 
 build:
   ci:
     - npm install
     - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
-    # - npm test
     - $MOD_LOC/mocha --exit --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
     # - $MOD_LOC/istanbul --include-all-sources cover -root "$SHIPPABLE_REPO_DIR/routes" $SHIPPABLE_REPO_DIR/node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
     # - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
@@ -39,11 +38,11 @@ build:
     - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
 
 resources:
-  - name: meetup-assembly-lines_img_dh
+  - name: image
     type: image
     integration: docker-registry
     versionTemplate:
-      sourceName: "lowbit/meetup-assembly-lines"
+      sourceName: "lowbit/meetup-app"
       isPull: false
       versionName: latest
 
@@ -51,4 +50,4 @@ jobs:
   - name: meetup-app-dev_runCI
     type: runCI
     steps:
-      - OUT: meetup-assembly-lines_img_dh
+      - OUT: image

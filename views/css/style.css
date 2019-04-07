@@ -104,7 +104,7 @@ p {
 }
 
 #text::after {
-  content: "Press ENTER to start - version: $BRANCH.$BUILD_NUMBER";
+  content: "Press ENTER to start - v: $BRANCH.$BUILD_NUMBER";
   color: orange;
   font-size: 20px;
   font-family: 'NexaBold';

@@ -45,6 +45,7 @@ build:
     - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
 
 resources:
+  # Imagem Docker gerada
   - name: docker_image
     type: image
     integration: docker-registry
@@ -54,6 +55,7 @@ resources:
       versionName: latest
 
 jobs:
+  # Gravando a versão da imagem no objeto (recurso) acima
   - name: meetup-app-dev_runCI
     type: runCI
     steps:

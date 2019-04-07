@@ -9,7 +9,5 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-module.exports = app;
-
 console.log("Tiago Ribeiro - tribeiros@indracompany.com")
 app.listen(port, () => console.log(`listening on port ${port}!`))

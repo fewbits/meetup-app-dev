@@ -50,7 +50,7 @@
   }
   80% {
     opacity: .5;
-    color: yellow;
+    color: orange;
     transform: translateY(10px);
   }
   100% {
@@ -71,6 +71,18 @@
   }
 }
 
+@keyframes starting {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+  opacity: .7;
+  }
+}
+
 
 .bounceInUp {
   -webkit-animation-name: bounceInUp;
@@ -88,10 +100,11 @@ p {
   padding-top: 50px;
   font-size: 80px;
   text-align: center;
+  text-shadow: 0 0 50px #141414;
 }
 
 #text::after {
-  content: "press enter";
+  content: "Version: $BRANCH.$BUILD_NUMBER (press ENTER to start)";
   color: orange;
   font-size: 20px;
   font-family: 'NexaBold';
@@ -99,7 +112,9 @@ p {
   bottom: -20px;
   left: -2px;
   right: -2px;
-  opacity: .5;
+  opacity: .7;
+  animation-name: starting;
+  animation-duration: 7.7s;
 }
 
 .enter::after {
@@ -116,7 +131,7 @@ canvas{
   position:absolute;
   top:0;
   left:0;
-  z-index: -9999
+  z-index: -9999;
 }
 
 #meetup {
@@ -127,8 +142,8 @@ canvas{
 .game {
   -webkit-animation-name: fadeOut;
   animation-name: fadeOut;
-  -webkit-animation-duration: 2s;
-  animation-duration: 2s;
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }

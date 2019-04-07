@@ -2,10 +2,13 @@
 FROM node:8-alpine
 
 # Add our project to the image
-ADD index.js package.json test views /app/
+WORKDIR /app
+COPY index.js index.js
+COPY package.json package.json
+COPY test test
+COPY views views
 
 # Install dependencies
-WORKDIR /app
 RUN [ "npm", "install" ]
 
 # And finally set the start command

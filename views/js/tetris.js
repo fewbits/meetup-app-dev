@@ -16,7 +16,6 @@ if (x >= 1400){
   var floorReset = 1
 }
 
-
 var tetrominos = [{
     // box
     colors : ['rgb(59,84,165)', 'rgb(118,137,196)', 'rgb(79,111,182)'],
@@ -170,6 +169,9 @@ Tetris.prototype.init = function(){
 
     window.addEventListener('keydown', function (e) {
         switch (e.keyCode) {
+          case 73:
+                self.init();
+                break;
           case 13:
                 document.getElementById("text").classList.add('enter');
                 document.getElementById("text").innerHTML = "READY!";
@@ -571,3 +573,10 @@ var width = window.innerWidth,
 for(var w = 0; w < boards; w++){
   tetrisInstances.push(new Tetris(20 * Math.round((w*bWidth)/20), 0, bWidth));
 }
+
+setInterval(function(){
+  document.getElementById("text").classList.add('placeholderVisible');
+  }, 7000);
+setInterval(function(){
+  document.getElementById("text").classList.add('placeholderContent');
+  }, 11000);

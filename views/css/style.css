@@ -75,14 +75,13 @@
   0% {
     opacity: 0;
   }
-  90% {
+  70%{
     opacity: 0;
   }
   100% {
-  opacity: .7;
+    opacity: .6;
   }
 }
-
 
 .bounceInUp {
   -webkit-animation-name: bounceInUp;
@@ -100,11 +99,11 @@ p {
   padding-top: 50px;
   font-size: 80px;
   text-align: center;
-  text-shadow: 0 0 50px #141414;
+  text-shadow: 0 0 5px #141414;
 }
 
 #text::after {
-  content: "Press ENTER to start - v: $BRANCH.$BUILD_NUMBER";
+  content: "$BRANCH.$BUILD_NUMBER";
   color: orange;
   font-size: 20px;
   font-family: 'NexaBold';
@@ -112,13 +111,21 @@ p {
   bottom: -20px;
   left: -2px;
   right: -2px;
-  opacity: .7;
-  animation-name: starting;
-  animation-duration: 7.7s;
+  opacity: .6;
+  animation: starting 10s ;
+  visibility: hidden;
 }
 
 .enter::after {
   display: none;
+}
+
+#text.placeholderVisible::after {
+  visibility: visible;
+}
+
+#text.placeholderContent::after {
+  content: "press enter to start";
 }
 
 body{

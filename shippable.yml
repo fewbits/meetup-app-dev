@@ -27,7 +27,8 @@ build:
   ci:
     - npm install
     - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
-    - $MOD_LOC/mocha --exit --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
+    - $MOD_LOC/nyc $MOD_LOC/mocha --exit --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
+    - $MOD_LOC/nyc report --reporter=cobertura --report-dir $CODE_COVERAGE_DIR
     # - $MOD_LOC/istanbul --include-all-sources cover -root "$SHIPPABLE_REPO_DIR/routes" $SHIPPABLE_REPO_DIR/node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
     # - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
     # - popd
@@ -37,17 +38,17 @@ build:
   on_success:
     - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
 
-resources:
-  - name: image
-    type: image
-    integration: docker-registry
-    versionTemplate:
-      sourceName: "lowbit/meetup-app"
-      isPull: false
-      versionName: latest
+# resources:
+#   - name: image
+#     type: image
+#     integration: docker-registry
+#     versionTemplate:
+#       sourceName: "lowbit/meetup-app"
+#       isPull: false
+#       versionName: latest
 
-jobs:
-  - name: meetup-app-dev_runCI
-    type: runCI
-    steps:
-      - OUT: image
+# jobs:
+#   - name: meetup-app-dev_runCI
+#     type: runCI
+#     steps:
+#       - OUT: image

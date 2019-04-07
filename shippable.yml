@@ -13,7 +13,7 @@ branches:
 # Integração com o Docker Registry
 integrations:
   hub:
-    - integrationName: docker_registry
+    - integrationName: docker-registry
       type: dockerRegistryLogin
 
 # Variáveis

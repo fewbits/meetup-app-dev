@@ -1,18 +1,22 @@
 ---
-language: node_js
 
+# Linguagem e versão do projeto
+language: node_js
 node_js:
   - 8.15.1
 
+# Quais branches acionarão os jobs
 branches:
   only:
     - master
 
+# Integração com o Docker Registry
 integrations:
   hub:
-    - integrationName: docker-registry
+    - integrationName: docker_registry
       type: dockerRegistryLogin
 
+# Variáveis
 env:
   global:
     - TEST_RESULTS_DIR=$SHIPPABLE_REPO_DIR/shippable/testresults
@@ -25,17 +29,19 @@ env:
 
 build:
   ci:
+    # Instalando dependências
     - npm install
+    # Testes Unitários e Relatório de Cobertura
     - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
     - $MOD_LOC/nyc $MOD_LOC/mocha --exit --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
     - $MOD_LOC/nyc report --reporter=cobertura --report-dir $CODE_COVERAGE_DIR
-    # - $MOD_LOC/istanbul --include-all-sources cover -root "$SHIPPABLE_REPO_DIR/routes" $SHIPPABLE_REPO_DIR/node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
-    # - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
-    # - popd
   post_ci:
+    # Construindo imagem docker
     - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER .
+    # Armazenando imagem docker
     - docker push $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER
   on_success:
+    # Salvando informações sobre esta imagem para usar adiante no Workflow
     - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
 
 # resources:

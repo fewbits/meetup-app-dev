@@ -25,7 +25,7 @@ env:
     - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/
     - DOCKER_REPO="meetup-app"
     - DOCKER_ACC=lowbit
-    - SHIP_IMG_RES="image"
+    - SHIP_IMG_RES="docker_image"
 
 build:
   ci:
@@ -44,17 +44,17 @@ build:
     # Salvando informações sobre esta imagem para usar adiante no Workflow
     - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
 
-# resources:
-#   - name: image
-#     type: image
-#     integration: docker-registry
-#     versionTemplate:
-#       sourceName: "lowbit/meetup-app"
-#       isPull: false
-#       versionName: latest
+resources:
+  - name: docker_image
+    type: image
+    integration: docker-registry
+    versionTemplate:
+      sourceName: "lowbit/meetup-app"
+      isPull: false
+      versionName: latest
 
-# jobs:
-#   - name: meetup-app-dev_runCI
-#     type: runCI
-#     steps:
-#       - OUT: image
+jobs:
+  - name: meetup-app-dev_runCI
+    type: runCI
+    steps:
+      - OUT: docker_image

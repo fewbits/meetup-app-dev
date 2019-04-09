@@ -11,5 +11,5 @@ app.get('/', function(req, res) {
 
 module.exports = app;
 
-console.log("Tiago Ribeiro - tribeiros@indracompany.com")
+console.log("Tiago Ribeiro vulgo tribeiros - tribeiros@indracompany.com")
 app.listen(port, () => console.log(`listening on port ${port}!`))

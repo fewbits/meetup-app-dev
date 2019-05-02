@@ -16,4 +16,4 @@ RUN apk add supervisor
 COPY supervisord.conf /etc/supervisord.conf
 
 # And finally set the start command
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["supervisord", "--nodaemon", "-c", "/etc/supervisord.conf"]

@@ -4,7 +4,8 @@ FROM node:8-alpine
 # Testing
 RUN apk update
 RUN apk add supervisor
-RUN pip install supervisor
+RUN supervisord --help
+RUN supervisor --help
 RUN exit 1
 
 # Add our project to the image

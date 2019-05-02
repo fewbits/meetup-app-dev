@@ -13,7 +13,7 @@ RUN [ "npm", "install" ]
 
 # Install and configure supervisord
 RUN apk add supervisor
-COPY supervisord.conf
+# COPY supervisord.conf
 RUN ls -l /etc/supervisor
 RUN exit 1
 

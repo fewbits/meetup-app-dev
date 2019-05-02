@@ -31,13 +31,13 @@ build:
   ci:
     # Instalando dependências
     - npm install
+    # Adicionando informações da versão na interface do app
+    - shipctl replace views/css/style.css
     # Testes Unitários e Relatório de Cobertura
     - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
     - $MOD_LOC/nyc $MOD_LOC/mocha --exit --recursive "$TESTS_LOC_DIR/http.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
     - $MOD_LOC/nyc report --reporter=cobertura --report-dir $CODE_COVERAGE_DIR
   post_ci:
-    # Adicionando informações da versão na interface do app
-    - shipctl replace views/css/style.css
     # Construindo imagem docker
     - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER .
     # Armazenando imagem docker

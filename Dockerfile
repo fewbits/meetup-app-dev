@@ -1,6 +1,12 @@
 # Let's use some really lightweight image
 FROM node:8-alpine
 
+# Testing
+RUN apk update
+RUN apk add supervisor
+RUN pip install supervisor
+RUN exit 1
+
 # Add our project to the image
 WORKDIR /app
 COPY index.js index.js

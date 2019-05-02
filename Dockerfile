@@ -1,13 +1,6 @@
 # Let's use some really lightweight image
 FROM node:8-alpine
 
-# Testing
-RUN apk update
-RUN apk add supervisor
-RUN supervisord --help
-RUN supervisor --help
-RUN exit 1
-
 # Add our project to the image
 WORKDIR /app
 COPY index.js index.js
@@ -17,6 +10,12 @@ COPY views views
 
 # Install dependencies
 RUN [ "npm", "install" ]
+
+# Install and configure supervisord
+RUN apk add supervisor
+COPY supervisord.conf
+RUN ls -l /etc/supervisor
+RUN exit 1
 
 # And finally set the start command
 CMD [ "npm", "start" ]

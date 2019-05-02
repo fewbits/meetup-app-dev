@@ -23,7 +23,7 @@ env:
     - CODE_COVERAGE_DIR=$SHIPPABLE_REPO_DIR/shippable/codecoverage
     - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/test
     - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/
-    - DOCKER_REPO="meetup-app"
+    - DOCKER_REPO="qconsp-app1"
     - DOCKER_ACC=lowbit
     - SHIP_IMG_RES="docker_image"
 
@@ -52,13 +52,13 @@ resources:
     type: image
     integration: docker-registry
     versionTemplate:
-      sourceName: "lowbit/meetup-app"
+      sourceName: "lowbit/qconsp-app1"
       isPull: false
       versionName: latest
 
 jobs:
   # Gravando a versão da imagem no objeto (recurso) acima
-  - name: meetup-app-dev_runCI
+  - name: qconsp-dev-app1_runCI
     type: runCI
     steps:
       - OUT: docker_image

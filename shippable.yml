@@ -1,5 +1,4 @@
 ---
-
 # Linguagem e versão do projeto
 language: node_js
 node_js:
@@ -23,9 +22,9 @@ env:
     - CODE_COVERAGE_DIR=$SHIPPABLE_REPO_DIR/shippable/codecoverage
     - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/test
     - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/
-    - DOCKER_REPO="qconsp-app1"
+    - DOCKER_REPO="qconsp-app"
     - DOCKER_ACC=lowbit
-    - SHIP_IMG_RES="docker_image"
+    - SHIP_IMG_RES="docker_image_app"
 
 build:
   ci:
@@ -47,18 +46,18 @@ build:
     - shipctl put_resource_state $SHIP_IMG_RES versionName $BRANCH.$BUILD_NUMBER
 
 resources:
-  # Imagem Docker gerada
-  - name: docker_image
+  # Imagem Docker do App
+  - name: docker_image_app
     type: image
     integration: docker-registry
     versionTemplate:
-      sourceName: "lowbit/qconsp-app1"
+      sourceName: "lowbit/qconsp-app"
       isPull: false
       versionName: latest
 
 jobs:
   # Gravando a versão da imagem no objeto (recurso) acima
-  - name: qconsp-dev-app1_runCI
+  - name: qconsp-dev-app_runCI
     type: runCI
     steps:
-      - OUT: docker_image
+      - OUT: docker_image_app
